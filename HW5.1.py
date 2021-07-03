@@ -72,10 +72,9 @@ class Lecturer(Mentor):
     def get_avg_grade_lec(self):
         sum_hw = 0
         for grades in self.grades:
-            sum_hw += sum(grades)
-        return round(sum_hw / len(grades), 2)
+            sum_hw += sum(self.grades)
+        return round(sum_hw / len(self.grades), 2)
     
-
     def __str__(self):
         res = f'Имя: {self.name} \n'\
               f'Фамилия: {self.surname} \n'\
@@ -87,7 +86,7 @@ class Lecturer(Mentor):
                 print('Такого лектора нет')
                 return
         else:
-            compare = ((sum(self.grades) / len(self.grades)) < (sum(other_lecturer.grades) / len(other_lecturer.grades))
+            compare = self.get_avg_grade_lec() < other_lecturer.get_avg_grade_lec()
             if compare:
                 print(f'{self.name} {self.surname} читает лекции хуже, чем {other_lecturer.name} {other_lecturer.surname}')
             else:
@@ -131,9 +130,11 @@ good_reviwer.rate_hw(next_student, 'Python', 8)
 good_reviwer.rate_hw(next_student, 'Python', 4)
 
 
-best_student.rate_lecturer(interesting_lecturer, 'Python', 5)
+best_student.rate_lecturer(interesting_lecturer, 'Python', 8)
 best_student.rate_lecturer(interesting_lecturer, 'Git', 8)
-next_student.rate_lecturer(next_lecturer, 'Python', 7)
+next_student.rate_lecturer(interesting_lecturer, 'Python', 6)
+next_student.rate_lecturer(interesting_lecturer, 'Git', 9)
+next_student.rate_lecturer(next_lecturer, 'Python', 6)
 next_student.rate_lecturer(next_lecturer, 'Git', 9)
 
 print(good_reviwer)
@@ -141,11 +142,6 @@ print(good_reviwer)
 print(interesting_lecturer)
 
 print(best_student)
-
-print(next_lecturer.grades)
-print(interesting_lecturer.grades)
-
-print(sum(next_lecturer.grades))
 
 print(best_student < next_student)
 
